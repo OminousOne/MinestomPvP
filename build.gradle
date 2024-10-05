@@ -38,7 +38,7 @@ publishing {
             // Authentication: Use these environment variables or Gradle properties
             credentials {
                 username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")  // Username (GitHub)
-                password = project.findProperty("gpr.token") ?: System.getenv("BUILD_TOKEN")  // Token (GitHub PAT)
+                password = project.findProperty("gpr.token") ?: System.getenv("GITHUB_TOKEN")  // Token (GitHub PAT)
             }
         }
     }
