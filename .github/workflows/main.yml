@@ -1,0 +1,36 @@
+name: Publish to GitHub Packages
+
+on:
+  push:
+    branches:
+      - main   # Trigger on pushes to the main branch
+  pull_request:
+    branches:
+      - main   # Just to verify builds for PRs
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout Repository Code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Set up JDK to match your project's requirement (Java 21)
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'  # or temurin or zulu
+          java-version: '21'
+
+      # Step 3: Make Gradlew Executable
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      # Step 4: Build and Publish the Library to GitHub Packages
+      - name: Build and publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.BUILD_TOKEN }}  # Set GitHub Credentials (PAT in GitHub Secrets)
+          USERNAME: ${{ secrets.USERNAME }}          # Set GitHub Username (in GitHub Secrets)
+        run: ./gradlew clean build publish
