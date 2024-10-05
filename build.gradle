@@ -26,35 +26,7 @@ publishing {
         mavenJava(MavenPublication) {
             from components.java
 
-            artifactId = 'MinestomPvP'
-            groupId = "io.github.OminousOne"
-
-            // Add basic POM info to avoid GitHub Packages validation issues
-            pom {
-                name.set("MinestomPvP")
-                description.set("Minestom PvP modifications project")
-                url.set("https://github.com/OminousOne/MinestomPvP")
-
-                licenses {
-                    license {
-                        name.set("MIT License")
-                        url.set("https://opensource.org/licenses/MIT")
-                    }
-                }
-
-                developers {
-                    developer {
-                        id.set("OminousOne")
-                        name.set("Julien")
-                    }
-                }
-
-                scm {
-                    connection.set("scm:git:git://github.com/OminousOne/MinestomPvP.git")
-                    developerConnection.set("scm:git:ssh://github.com:OminousOne/MinestomPvP.git")
-                    url.set("https://github.com/OminousOne/MinestomPvP")
-                }
-            }
+            artifactId = "minestompvp"
         }
     }
 
@@ -63,10 +35,15 @@ publishing {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/OminousOne/MinestomPvP") // Update with your GitHub info
 
+            authentication {
+                basic(BasicAuthentication)  // Enforces Basic Authentication
+            }
+
             // Authentication: Use these environment variables or Gradle properties
             credentials {
                 username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")  // Username (GitHub)
                 password = project.findProperty("gpr.token") ?: System.getenv("BUILD_TOKEN")  // Token (GitHub PAT)
+                println "Publishing to GitHub with username: ${username} and ${password}"
             }
         }
     }
