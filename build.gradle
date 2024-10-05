@@ -27,4 +27,17 @@ publishing {
             from components.java
         }
     }
+
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/OminousOne/MinestomPvP") // Update with your GitHub info
+
+            // Authentication: Use these environment variables or Gradle properties
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")  // Username (GitHub)
+                password = project.findProperty("gpr.token") ?: System.getenv("BUILD_TOKEN")  // Token (GitHub PAT)
+            }
+        }
+    }
 }
