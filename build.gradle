@@ -43,7 +43,6 @@ publishing {
             credentials {
                 username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")  // Username (GitHub)
                 password = project.findProperty("gpr.token") ?: System.getenv("BUILD_TOKEN")  // Token (GitHub PAT)
-                println "Publishing to GitHub with username: ${username} and ${password}"
             }
         }
     }
