@@ -35,10 +35,6 @@ publishing {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/OminousOne/MinestomPvP") // Update with your GitHub info
 
-            authentication {
-                basic(BasicAuthentication)  // Enforces Basic Authentication
-            }
-
             // Authentication: Use these environment variables or Gradle properties
             credentials {
                 username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")  // Username (GitHub)
