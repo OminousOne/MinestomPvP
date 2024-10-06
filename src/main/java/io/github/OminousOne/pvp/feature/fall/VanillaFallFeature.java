@@ -162,9 +162,9 @@ public class VanillaFallFeature implements FallFeature, CombatFeature, Registrab
 	public int getFallDamage(LivingEntity entity, double fallDistance) {
 		double safeFallDistance = entity.getAttributeValue(Attribute.GENERIC_SAFE_FALL_DISTANCE);
 
-		System.out.println(entity.getInstance().getBlock(entity.getPosition().sub(0.0, 1.0, 0.0)).registry().material());
-		System.out.println(entity.getInstance().getBlock(entity.getPosition().sub(0.0, 0.0, 0.0)).registry().material());
-		System.out.println(entity.getInstance().getBlock(entity.getPosition().sub(0.0, -1.0, 0.0)).registry().material());
+		System.out.println(entity.getInstance().getBlock(entity.getPosition().sub(0.0, 1.0, 0.0)));
+		System.out.println(entity.getInstance().getBlock(entity.getPosition().sub(0.0, 0.0, 0.0)));
+		System.out.println(entity.getInstance().getBlock(entity.getPosition().sub(0.0, -1.0, 0.0)));
 		return entity.getInstance().getBlock(entity.getPosition().sub(0.0, 1.0, 0.0)) != Block.WATER ? (int) Math.ceil((fallDistance - safeFallDistance) * entity.getAttributeValue(Attribute.GENERIC_FALL_DAMAGE_MULTIPLIER)) : 0;
 	}
 	
