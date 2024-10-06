@@ -47,7 +47,7 @@ public class CombatManager {
 	public @Nullable String getFallLocation(PlayerStateFeature playerStateFeature) {
 		Block lastClimbedBlock = playerStateFeature.getLastClimbedBlock(player);
 		if (lastClimbedBlock == null) {
-			return player.getInstance().getBlock(player.getPosition().sub(0.0, 1.0, 0.0)) == Block.WATER ? "water" : null;
+			return player.getInstance().getBlock(player.getPosition().sub(0.0, 0.0, 0.0)) == Block.WATER ? "water" : null;
 		}
 		
 		if (lastClimbedBlock.compare(Block.LADDER) || lastClimbedBlock.compare(Block.ACACIA_TRAPDOOR)
