@@ -73,12 +73,27 @@ public class VanillaFallFeature implements FallFeature, CombatFeature, Registrab
 		node.addListener(PlayerMoveEvent.class, event -> {
 			Player player = event.getPlayer();
 			if (playerStateFeature.isClimbing(player)) player.setTag(FALL_DISTANCE, 0.0);
-			
+
 			handleFallDamage(
 					player, player.getPosition(),
 					event.getNewPosition(), event.isOnGround()
 			);
 		});
+	}
+
+	/**
+	 * Checks if the player is in water (checking feet and knees level).
+	 */
+	public boolean isInWater(Player player) {
+		Pos pos = player.getPosition();
+
+		// Check block at feet
+		Block blockAtFeet = player.getInstance().getBlock(pos.sub(0, 1, 0));
+		if (blockAtFeet.compare(Block.WATER)) return true;
+
+		// Optionally: Check block at knees (about 0.5 blocks above feet)
+		Block blockAtKnees = player.getInstance().getBlock(pos.sub(0, 0.5, 0));
+		return blockAtKnees.compare(Block.WATER);
 	}
 	
 	public void handleFallDamage(LivingEntity entity, Pos currPos, Pos newPos, boolean onGround) {
@@ -140,7 +155,9 @@ public class VanillaFallFeature implements FallFeature, CombatFeature, Registrab
 		
 		if (entity instanceof Player player && !player.getGameMode().canTakeDamage()) return;
 		int damage = getFallDamage(entity, fallDistance);
-		if (damage > 0) {
+		if(isInWater((Player) entity)) damage = 0;
+
+		if (damage > 0 && !isInWater((Player) entity)) {
 			playFallSound(entity, damage);
 			entity.damage(DamageType.FALL, damage);
 		}
